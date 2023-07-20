@@ -1,0 +1,34 @@
+
+import java.io.FileReader;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+class Main {
+
+  public static void main(String[] args) {
+    JSONParser parser = new JSONParser();
+    
+    try {
+      Object obj = parser.parse(new FileReader("input.json"));
+      JSONObject jsonObject = (JSONObject) obj;
+
+      Map<String, String> map = new HashMap<String, String>();
+  
+      map.put("a", (String) jsonObject.get("a"));
+      JSONObject nestedObject = (JSONObject) jsonObject.get("b");
+      map.put("c", (String) nestedObject.get("c"));
+      map.put("d", (String) nestedObject.get("d"));
+
+      //Print the result 
+      for (Map.Entry<String, String> entry : map.entrySet()) {
+        System.out.println(entry.getKey() + ": " + entry.getValue());
+      } 
+    } catch (Exception e) {
+      e.printStackTrace();
+    } 
+  }
+
+}
